@@ -1,0 +1,87 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+	<head> 
+		<meta charset="UTF-8" />
+		<title>bike-display</title>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<div id="bike-level" class="bike-level">
+			Current Bike Level: 3
+		</div>
+		<div>
+			<input type="button" class="btn" id="btn-start-inteval" onclick="modInterval('start')" value="Start Interval"/>
+			<input type="button" class="btn" id="btn-pause-inteval" onclick="modInterval('pause')" value="Pause Interval"/>
+			<input type="button" class="btn" id="btn-resume-inteval" onclick="modInterval('resume')" value="Resume Interval"/>
+			<input type="button" class="btn" id="btn-cancel-inteval" onclick="modInterval('cancel')" value="Cancel Interval"/>
+			<input type="button" class="btn" id="btn-mod-bike-level-1" onclick="btnModBikeLevel('+1')" value="Mod Bike Level +1"/>
+			<input type="button" class="btn" id="btn-mod-bike-level-2" onclick="btnModBikeLevel('-1')"value="Mod Bike Level -1"/>
+			<input type="button" class="btn" id="btn-mod-bike-level-3" onclick="btnModBikeLevel('min')"value="Mod Bike Level max"/>
+			<input type="button" class="btn" id="btn-mod-bike-level-4" onclick="btnModBikeLevel('max')"value="Mod Bike Level min"/>
+			<input type="button" class="btn" id="btn-mod-bike-level-4" onclick="btnModBikeLevel('base')"value="Mod Bike Level Base"/>
+		</div>
+	</body>
+	<script src="./node_modules/jquery/dist/jquery.min.js"></script>
+	<script>
+		window.setInterval(() => {
+			getData();
+		}, 1000)
+
+		function getData() {
+			$.ajax({url: "./api/get-data", method: "GET"})
+			.done((responseData, statusText, xhr) => {
+				updateData(responseData);
+			})
+			.fail((xhr) => {
+				console.error("Failed to fetch get-bike-level: " + xhr.statusText);
+			});
+		}
+
+		function updateData(responseData) {
+			var divBikeLevel = $("#bike-level");
+			divBikeLevel.text("Current Bike Level: " + responseData.data.currentBikeLevel + " (" + getTimerFormat(responseData.data.currentInterval) + ")");
+		}
+
+		function modInterval(cmd) {
+			var data = {
+				command: cmd
+			}
+			$.ajax({url: "./api/mod-interval", method: "POST", data})
+			.done((responseData, statusText, xhr) => {
+				getData();
+			})
+			.fail((xhr) => {
+				console.error("Failed to fetch modInterval: " + xhr.statusText);
+			});
+		}
+
+		function btnModBikeLevel(mod) {
+			var data = {
+				mod: mod
+			}
+			$.ajax({url: "./api/mod-bike-level", method: "POST", data: data})
+			.done((responseData, statusText, xhr) => {
+				getData()
+			})
+			.fail((xhr) => {
+				console.error("Failed to fetch btnModBikeLevel: " + xhr.statusText);
+			});
+		}
+
+
+
+		//helper functions
+		function getTimerFormat(ms) {
+			return getMinutes(ms) + ":" + getSeconds(ms);
+		}
+		
+		function getMinutes(ms) {
+			return Math.floor(ms / (60 * 1000));
+		}
+
+		function getSeconds(ms) {
+			return (Math.floor(ms / 1000) % 60).toString().padStart(2, "0");
+		}
+
+	</script>
+</html>
