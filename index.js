@@ -21,7 +21,7 @@ Setup:
 After the setup is working, you should be able to display the browser on your streaming software (OBS, streamlabs, whatever your using).
 I'll leave that up to you because I don't know what your using.
 
-Below are configurations for this software. You should configure them to your liking.
+Below are configurations:
 */
 
 // min/max bike level
@@ -44,6 +44,8 @@ var channelName = "Miles_Gloriosus";
 //   		  max - sets the bike level to max
 //			  min - sets the bike level to min
 //			  base - sets the bike level to base level
+//
+// Example: for an entry of "increase1": "+1", if someone in the twitch channel typed in "increase1" (case doesn't matter), then the bike level should increase by 1.
 var twitchChatMappings = {
 	"increase1": "+1",
 	"decrease2": "-1",
@@ -67,7 +69,7 @@ var currentBikeLevel = baseBikeLevel;
 var currentInterval = intervalLength;
 var previousTick = 0;
 var frameTimeStep = 100; //ms
-var intervalState = "run"; //stop, run, pause
+var intervalState = "stop"; //stop, run, pause
 
 //create http server
 const expressServer = app.listen(port, () => {console.log("info", 'Webserver listening on port ' + port)});

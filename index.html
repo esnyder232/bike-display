@@ -9,15 +9,20 @@
 		<div id="bike-level" class="bike-level">
 			Current Bike Level: 3
 		</div>
-		<div>
+		<div class="control-title">
+			Manual Controls:
+		</div>
+		<div class="control-container">			
 			<input type="button" class="btn" id="btn-start-inteval" onclick="modInterval('start')" value="Start Interval"/>
 			<input type="button" class="btn" id="btn-pause-inteval" onclick="modInterval('pause')" value="Pause Interval"/>
 			<input type="button" class="btn" id="btn-resume-inteval" onclick="modInterval('resume')" value="Resume Interval"/>
 			<input type="button" class="btn" id="btn-cancel-inteval" onclick="modInterval('cancel')" value="Cancel Interval"/>
+		</div>
+		<div class="control-container">
 			<input type="button" class="btn" id="btn-mod-bike-level-1" onclick="btnModBikeLevel('+1')" value="Mod Bike Level +1"/>
 			<input type="button" class="btn" id="btn-mod-bike-level-2" onclick="btnModBikeLevel('-1')"value="Mod Bike Level -1"/>
-			<input type="button" class="btn" id="btn-mod-bike-level-3" onclick="btnModBikeLevel('min')"value="Mod Bike Level max"/>
-			<input type="button" class="btn" id="btn-mod-bike-level-4" onclick="btnModBikeLevel('max')"value="Mod Bike Level min"/>
+			<input type="button" class="btn" id="btn-mod-bike-level-3" onclick="btnModBikeLevel('max')"value="Mod Bike Level max"/>
+			<input type="button" class="btn" id="btn-mod-bike-level-4" onclick="btnModBikeLevel('min')"value="Mod Bike Level min"/>
 			<input type="button" class="btn" id="btn-mod-bike-level-4" onclick="btnModBikeLevel('base')"value="Mod Bike Level Base"/>
 		</div>
 	</body>

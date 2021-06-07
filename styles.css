@@ -2,3 +2,13 @@
 	color:red;
 	font-size: 48px;
 }
+
+.control-title {
+	margin-top: 24px;
+	font-size: 32px;
+}
+
+.control-container {
+	margin-top: 6px;
+	font-size: 24px;
+}
